@@ -1,0 +1,15 @@
+# Ignore Code::Blocks project files
+*.cbp
+*.layout
+
+# Ignore build directories
+/bin/
+/obj/
+
+# Ignore OS-specific files
+.DS_Store
+Thumbs.db
+
+# Ignore IDE-specific settings
+.vscode/
+.idea/
