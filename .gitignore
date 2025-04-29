@@ -1,6 +1,7 @@
 # Ignore Code::Blocks project files
 *.cbp
 *.layout
+*.depend 
 
 # Ignore build directories
 /bin/
@@ -13,3 +14,11 @@ Thumbs.db
 # Ignore IDE-specific settings
 .vscode/
 .idea/
+
+# Ignore backup files
+*~
+
+# Ignore compiled binaries
+*.exe
+*.o
+*.out
