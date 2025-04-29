@@ -106,7 +106,49 @@ void PasswordManager::viewPasswords()
 
 void PasswordManager::deletePassword()
 {
-    cout << "[Delete Password] - Not yet implemented.\n";
+    string targetWebsite;
+    cin.ignore();
+
+    cout << "Enter website to delete: ";
+    getline(cin, targetWebsite);
+
+    ifstream inFile("passwords.txt");
+    ofstream outFile("temp.txt");
+
+    bool found = false;
+    string line;
+
+    if (!inFile.is_open())
+    {
+        cerr << "No saved passwords to delete.\n";
+        return;
+    }
+
+    while (getline(inFile, line))
+    {
+        stringstream ss(line);
+        string website;
+        getline(ss, website, ',');
+
+        if (website != targetWebsite)
+        {
+            outFile << line << '\n';
+        }
+        else
+        {
+            found = true;
+        }
+    }
+    inFile.close();
+    outFile.close();
+
+    remove("passwords.txt");
+    rename("temp.txt", "passwords.txt");
+
+    if (found)
+        cout << "Password deleted successfully.\n";
+    else
+        cout << "No matching website found.";
 }
 
 void PasswordManager::savePasswords()
