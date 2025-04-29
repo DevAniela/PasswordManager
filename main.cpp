@@ -5,6 +5,7 @@ using namespace std;
 
 int main()
 {
-    cout << "Hello world!" << endl;
+    PasswordMAnager manager;
+    manager.run;
     return 0;
 }

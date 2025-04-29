@@ -1,1 +1,66 @@
+#include <iostream>
+#include "password_manager.h"
 
+using namespace std;
+
+void PasswordManager::run()
+{
+    int choice;
+    do
+    {
+        showMenu();
+        cin >> choice;
+        switch (choice)
+        {
+        case 1:
+            addPassword();
+            break;
+        case 2:
+            viewPasswords();
+            break;
+        case 3:
+            deletePassword();
+            break;
+        case 4:
+            savePasswords();
+            break;
+        case 5:
+            cout << "Exiting...\n";
+            break;
+        default:
+            cout << "Not a valid choice.\n";
+        }
+    }
+    while (choice != 5);
+}
+
+void PasswordManager::showMenu()
+{
+    cout << "\n=== Password Manager ===\n";
+    cout << "1. Add password\n";
+    cout << "2. View passwords\n";
+    cout << "3. Delete password\n";
+    cout << "4. Save passwords\n";
+    cout << "5. Exit\n";
+    cout << "Enter your choice";
+}
+
+void PasswordManager::addPassword()
+{
+    cout << "[Add Password] - Not yet implemented.\n";
+}
+
+void PasswordManager::viewPasswords()
+{
+    cout << "[View passwords] - Not yet implemented.\n";
+}
+
+void PasswordManager::deletePassword()
+{
+    cout << "[Delete Password] - Not yet implemented.\n";
+}
+
+void PasswordManager::savePasswords()
+{
+    cout << "[Save Passwords] - Not yet implemented.\n";
+}

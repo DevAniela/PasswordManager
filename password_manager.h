@@ -3,10 +3,16 @@
 
 #include <string>
 
-void showMenu();
-void addPassword();
-void viewPasswords();
-void deletePassword();
-void savePasswords();
+class PasswordManager
+{
+public:
+    void run();
+private:
+    void showMenu();
+    void addPassword();
+    void viewPasswords();
+    void deletePassword();
+    void savePasswords();
+};
 
 #endif
