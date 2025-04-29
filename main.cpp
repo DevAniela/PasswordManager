@@ -1,11 +1,10 @@
-#include <iostream>
 #include "password_manager.h"
 
 using namespace std;
 
 int main()
 {
-    PasswordManager manager;
-    manager.run();
+    PasswordManager pm;
+    pm.run();
     return 0;
 }
