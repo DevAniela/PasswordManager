@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <sstream>
 #include "password_manager.h"
 
 using namespace std;
@@ -44,7 +45,7 @@ void PasswordManager::showMenu()
     cout << "3. Delete password\n";
     cout << "4. Save passwords\n";
     cout << "5. Exit\n";
-    cout << "Enter your choice";
+    cout << "Enter your choice ";
 }
 
 void PasswordManager::addPassword()
@@ -76,7 +77,31 @@ void PasswordManager::addPassword()
 
 void PasswordManager::viewPasswords()
 {
-    cout << "[View passwords] - Not yet implemented.\n";
+    ifstream file("passwords.txt");
+    string line;
+
+    if (!file.is_open())
+    {
+        cerr << "No saved passwords found.\n";
+        return;
+    }
+
+    cout << "\n--- Saved Passwords ---\n";
+    while (getline(file, line))
+    {
+        stringstream ss(line);
+        string website, username, password;
+
+        getline(ss, website, ',');
+        getline(ss, username, ',');
+        getline(ss, password, ',');
+
+        cout << "Website: " << website << "\n";
+        cout << "Username: " << username << "\n";
+        cout << "Password: " << password << "\n";
+        cout << "-----------------------\n";
+    }
+    file.close();
 }
 
 void PasswordManager::deletePassword()
