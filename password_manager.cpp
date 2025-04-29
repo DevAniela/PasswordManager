@@ -65,7 +65,7 @@ void PasswordManager::addPassword()
     ofstream file("passwords.txt", ios::app); // Append mode
     if (file.is_open())
     {
-        file << website << ',' << username << ',' << password << '\n';
+        file << website << ',' << encrypt(username) << ',' << encrypt(password) << '\n';
         file.close();
         cout << "Password saved successfully.\n";
     }
@@ -97,8 +97,8 @@ void PasswordManager::viewPasswords()
         getline(ss, password, ',');
 
         cout << "Website: " << website << "\n";
-        cout << "Username: " << username << "\n";
-        cout << "Password: " << password << "\n";
+        cout << "Username: " << decrypt(username) << "\n";
+        cout << "Password: " << decrypt(password) << "\n";
         cout << "-----------------------\n";
     }
     file.close();
@@ -154,4 +154,24 @@ void PasswordManager::deletePassword()
 void PasswordManager::savePasswords()
 {
     cout << "[Save Passwords] - Not yet implemented.\n";
+}
+
+string PasswordManager::encrypt(const string& text)
+{
+    string encrypted = text;
+    for (char& c : encrypted)
+    {
+        c += 3;
+    }
+    return encrypted;
+}
+
+string PasswordManager::decrypt(const string& text)
+{
+    string decrypted = text;
+    for (char& c : decrypted)
+    {
+        c -= 3;
+    }
+    return decrypted;
 }
