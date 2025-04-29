@@ -5,7 +5,7 @@ using namespace std;
 
 int main()
 {
-    PasswordMAnager manager;
-    manager.run;
+    PasswordManager manager;
+    manager.run();
     return 0;
 }

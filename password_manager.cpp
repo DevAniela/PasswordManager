@@ -1,4 +1,6 @@
 #include <iostream>
+#include <fstream>
+#include <string>
 #include "password_manager.h"
 
 using namespace std;
@@ -47,7 +49,29 @@ void PasswordManager::showMenu()
 
 void PasswordManager::addPassword()
 {
-    cout << "[Add Password] - Not yet implemented.\n";
+    string website, username, password;
+    cin.ignore(); // Clear input buffer
+
+    cout << "Enter website: ";
+    getline(cin, website);
+
+    cout << "Enter username: ";
+    getline(cin, username);
+
+    cout << "Enter password: ";
+    getline(cin, password);
+
+    ofstream file("passwords.txt", ios::app); // Append mode
+    if (file.is_open())
+    {
+        file << website << ',' << username << ',' << password << '\n';
+        file.close();
+        cout << "Password saved successfully.\n";
+    }
+    else
+    {
+        cerr << "Error opening file for writing.\n";
+    }
 }
 
 void PasswordManager::viewPasswords()
