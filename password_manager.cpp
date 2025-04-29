@@ -4,15 +4,13 @@
 #include <sstream>
 #include "password_manager.h"
 
-using namespace std;
-
 void PasswordManager::run()
 {
     int choice;
     do
     {
         showMenu();
-        cin >> choice;
+        std::cin >> choice;
         switch (choice)
         {
         case 1:
@@ -28,10 +26,10 @@ void PasswordManager::run()
             savePasswords();
             break;
         case 5:
-            cout << "Exiting...\n";
+            std::cout << "Exiting...\n";
             break;
         default:
-            cout << "Not a valid choice.\n";
+            std::cout << "Not a valid choice.\n";
         }
     }
     while (choice != 5);
@@ -39,95 +37,95 @@ void PasswordManager::run()
 
 void PasswordManager::showMenu()
 {
-    cout << "\n=== Password Manager ===\n";
-    cout << "1. Add password\n";
-    cout << "2. View passwords\n";
-    cout << "3. Delete password\n";
-    cout << "4. Save passwords\n";
-    cout << "5. Exit\n";
-    cout << "Enter your choice ";
+    std::cout << "\n=== Password Manager ===\n";
+    std::cout << "1. Add password\n";
+    std::cout << "2. View passwords\n";
+    std::cout << "3. Delete password\n";
+    std::cout << "4. Save passwords\n";
+    std::cout << "5. Exit\n";
+    std::cout << "Enter your choice ";
 }
 
 void PasswordManager::addPassword()
 {
-    string website, username, password;
-    cin.ignore(); // Clear input buffer
+    std::string website, username, password;
+    std::cin.ignore(); // Clear input buffer
 
-    cout << "Enter website: ";
-    getline(cin, website);
+    std::cout << "Enter website: ";
+    getline(std::cin, website);
 
-    cout << "Enter username: ";
-    getline(cin, username);
+    std::cout << "Enter username: ";
+    getline(std::cin, username);
 
-    cout << "Enter password: ";
-    getline(cin, password);
+    std::cout << "Enter password: ";
+    getline(std::cin, password);
 
-    ofstream file("passwords.txt", ios::app); // Append mode
+    std::ofstream file("passwords.txt", std::ios::app); // Append mode
     if (file.is_open())
     {
         file << website << ',' << encrypt(username) << ',' << encrypt(password) << '\n';
         file.close();
-        cout << "Password saved successfully.\n";
+        std::cout << "Password saved successfully.\n";
     }
     else
     {
-        cerr << "Error opening file for writing.\n";
+        std::cerr << "Error opening file for writing.\n";
     }
 }
 
 void PasswordManager::viewPasswords()
 {
-    ifstream file("passwords.txt");
-    string line;
+    std::ifstream file("passwords.txt");
+    std::string line;
 
     if (!file.is_open())
     {
-        cerr << "No saved passwords found.\n";
+        std::cerr << "No saved passwords found.\n";
         return;
     }
 
-    cout << "\n--- Saved Passwords ---\n";
+    std::cout << "\n--- Saved Passwords ---\n";
     while (getline(file, line))
     {
-        stringstream ss(line);
-        string website, username, password;
+        std::stringstream ss(line);
+        std::string website, username, password;
 
         getline(ss, website, ',');
         getline(ss, username, ',');
         getline(ss, password, ',');
 
-        cout << "Website: " << website << "\n";
-        cout << "Username: " << decrypt(username) << "\n";
-        cout << "Password: " << decrypt(password) << "\n";
-        cout << "-----------------------\n";
+        std::cout << "Website: " << website << "\n";
+        std::cout << "Username: " << decrypt(username) << "\n";
+        std::cout << "Password: " << decrypt(password) << "\n";
+        std::cout << "-----------------------\n";
     }
     file.close();
 }
 
 void PasswordManager::deletePassword()
 {
-    string targetWebsite;
-    cin.ignore();
+    std::string targetWebsite;
+    std::cin.ignore();
 
-    cout << "Enter website to delete: ";
-    getline(cin, targetWebsite);
+    std::cout << "Enter website to delete: ";
+    getline(std::cin, targetWebsite);
 
-    ifstream inFile("passwords.txt");
-    ofstream outFile("temp.txt");
+    std::ifstream inFile("passwords.txt");
+    std::ofstream outFile("temp.txt");
 
     bool found = false;
-    string line;
+    std::string line;
 
     if (!inFile.is_open())
     {
-        cerr << "No saved passwords to delete.\n";
+        std::cerr << "No saved passwords to delete.\n";
         return;
     }
 
     while (getline(inFile, line))
     {
-        stringstream ss(line);
-        string website;
+        std::stringstream ss(line);
+        std::string website;
         getline(ss, website, ',');
 
         if (website != targetWebsite)
@@ -146,19 +144,19 @@ void PasswordManager::deletePassword()
     rename("temp.txt", "passwords.txt");
 
     if (found)
-        cout << "Password deleted successfully.\n";
+        std::cout << "Password deleted successfully.\n";
     else
-        cout << "No matching website found.";
+        std::cout << "No matching website found.";
 }
 
 void PasswordManager::savePasswords()
 {
-    cout << "[Save Passwords] - Not yet implemented.\n";
+    std::cout << "[Save Passwords] - Not yet implemented.\n";
 }
 
-string PasswordManager::encrypt(const string& text)
+std::string PasswordManager::encrypt(const std::string& text)
 {
-    string encrypted = text;
+    std::string encrypted = text;
     for (char& c : encrypted)
     {
         c += 3;
@@ -166,9 +164,9 @@ string PasswordManager::encrypt(const string& text)
     return encrypted;
 }
 
-string PasswordManager::decrypt(const string& text)
+std::string PasswordManager::decrypt(const std::string& text)
 {
-    string decrypted = text;
+    std::string decrypted = text;
     for (char& c : decrypted)
     {
         c -= 3;
